@@ -1,0 +1,217 @@
+.w{
+  color: black;
+}
+.x{
+  color: white;
+}
+.b{
+  font-weight: bold;
+}
+ 
+.l{
+  border: 1rpx solid #fff;
+}
+ 
+.center{
+  text-align: center;
+  margin: auto;
+}
+
+ .day{
+  text-align: center;
+  margin: auto;
+  width: 20%;
+}
+ .tmp{
+  text-align: center;
+  margin: auto;
+  width: 70%;
+  margin-left: 5rpx;
+}
+.hor{
+  display: flex;
+}
+ 
+.f50{
+  font-size: 40rpx;
+}
+  
+.bg {
+  width: 100%;
+  height: 700rpx;
+}
+ 
+.temp{
+  font-size: 100rpx;
+}
+ 
+.container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  height: 700rpx;
+  display: block;
+}
+
+.nowWeather{
+  padding: 60rpx;
+}
+.search {
+ margin-left: 100rpx;
+  border-radius: 8rpx;
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 70rpx;
+}
+
+.search input {
+  width: 100%;
+  padding: 10rpx 32rpx;
+  text-align: center;
+  color: white;
+  display: inline-block;
+}
+
+.bt_search {
+  border-radius: 0 8rpx 8rpx 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.bt_search icon {
+  margin: 8rpx 18rpx;
+}
+.weahterDetail{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 50rpx;
+}
+ 
+.forcast{
+  padding: 10rpx;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  border-bottom: 1rpx solid #eee;
+
+}
+.hourly_title{
+  font-weight: bold;
+  font-size: 42rpx;
+   padding: 18rpx 32rpx;
+}
+.hourly {
+  width: 718rpx;
+  margin: 0 18rpx;
+  border-radius: 18rpx;
+  box-shadow: 0.1rem 0.1rem 0.5rem rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  background-color: white;
+}
+.h_item {
+  margin: 18rpx 0;
+  display: inline-block;
+  width: 143.5rpx;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.h_img {
+  margin: 64rpx 0;
+}
+
+.h_img image {
+  width: 60rpx;
+}
+
+.h_item text {
+  display: block;
+}
+
+.h_time {
+  color: gray;
+}
+
+.h_wind_dir {
+  margin-top: 32rpx;
+}
+
+.h_wind_sc {
+  color: gray;
+}
+
+.h_tmp {
+  color: #027aff;
+}
+.daily_title{
+	font-weight: bold;
+	font-size: 42rpx;
+	 padding: 18rpx 32rpx;
+}
+
+.img{
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 16rpx;
+}
+
+/*底部温馨提示动画效果*/
+@keyframes remindMessage {
+  0% {
+    -webkit-transform: translateX(90%);
+  }
+
+  100% {
+    -webkit-transform: translateX(-180%);
+  }
+}
+
+.tongzhitext {
+  /* margin-right:80rpx; */
+  margin-left: 60rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  height: 22px;
+}
+
+.tongzhi-text {
+  font-size: 30rpx;
+  animation: remindMessage 14s linear infinite;
+  width: 100%;
+  color: #000000;
+  display: block;
+  margin-top: 5rpx;
+}
+
+.notice-wrap {
+  background: rgb(245, 241, 240);
+  width: 100%;
+  height: 60rpx;
+  line-height: 10rpx;
+  color: #d09868;
+  font-size: 28rpx;
+}
+
+.closeView {
+  width: 45rpx;
+  height: 45rpx;
+  line-height: 45rpx;
+  position: absolute;
+  right: 20rpx;
+  top: 5rpx;
+  text-align: center;
+  font-size: 35rpx;
+}
