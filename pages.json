@@ -6,7 +6,11 @@
 				"navigationBarTitleText": "无忧气象"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/citypicker/citypicker",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

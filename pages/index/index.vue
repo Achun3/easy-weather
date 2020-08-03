@@ -2,7 +2,6 @@
 	<div>
 	<view class="container">
 		<view class="top">
-			<view class="subtitle">—— 更新于{{time}} ——</view>
 			<!-- 用户信息模块 -->
 			<view class="user">
 				<!-- 头像 -->
@@ -35,56 +34,69 @@
 				温馨提示：当前天气{{Now}}, {{tip}}
 			</view>
 		</view>
-		<uni-card isFull="true" >
-		<view class="today">
+		<view class="title">
+			每小时
+		</view>
+		<scroll-view scroll-x="true" >
+			<view class="today">
+			<view v-for="(item,index) in hourly":key="item.id">
+				<view class="">
+					{{item.time}}<br>
+					{{item.temp}}℃<br>
+					<img :src="require('../../static/icon/天气图标/weathercn02/'+item.img+'.png')" class="img"/>
+				</view>
+			</view>
+			</view>	
+		</scroll-view>
+<!-- 		<view class="today">
 			<view class="">
 				今天&#12288;&#12288;&#12288;{{listArray[0].day.temphigh}}/{{listArray[0].night.templow}}℃
 				<br>
 				{{listArray[0].day.weather}}
-				
 				<img :src="require('../../static/icon/天气图标/weathercn02/'+listArray[0].day.img+'.png')" class="img" style="float: right;"/>
-			</view>
+			</view>|
 			<view class="">
 				明天&#12288;&#12288;&#12288;{{listArray[1].day.temphigh}}/{{listArray[1].night.templow}}℃
 				<br>
 				{{listArray[1].day.weather}}&#12288;&#12288;&#12288;				
 				<img :src="require('../../static/icon/天气图标/weathercn02/'+listArray[1].day.img+'.png')" class="img" style="float: right;"/>
 			</view>
-		</view>
-		</uni-card>
-		
+		</view><br> -->
+	    <view class="title">
+	    	每日
+	    </view>
+		<view class="week">
 		<view class="daily">
 			<view v-for="(item,index) in listArray":key="item.id">
 				<view class="">
 					{{item.week}}<br>
 					{{item.day.weather}}<br>
 					<img :src="require('../../static/icon/天气图标/weathercn02/'+item.day.img+'.png')" class="img"/>
-					</view>
 				</view>
-			</view>	
-		</view>
-	<view class="qiun-columns">
-		<view class="qiun-charts" >
+			</view>
+		</view>	
+	    <view class="qiun-columns">
+			<view class="qiun-charts" >
 			<!--#ifdef MP-ALIPAY -->
 			<canvas canvas-id="canvasLineA" id="canvasLineA" class="charts" :width="cWidth*pixelRatio" :height="cHeight*pixelRatio" :style="{'width':cWidth+'px','height':cHeight+'px'}" @touchstart="touchLineA" @touchmove="moveLineA" @touchend="touchEndLineA"></canvas>
 			<!--#endif-->
 			<!--#ifndef MP-ALIPAY -->
 			<canvas canvas-id="canvasLineA" id="canvasLineA" class="charts"></canvas>
 			<!--#endif-->
+			</view>
+	    </view>
 		</view>
-	</view>
 	</view>
 	</div>
 </template>
 
 <script>
-	import uniCard from '@/components/uni-card/uni-card.vue'
 	import uCharts from '@/js_sdk/u-charts/u-charts/u-charts.js';
 	var _self;
 	var canvaLineA=null;
 	export default {
 		components: {
-			uniCard
+
 		},
 		
 		data() {
@@ -98,7 +110,7 @@
 				todaytemphigh:"0",
 				img:"0",
 				listArray: [], //列表数据
-				
+				hourly:[],
 				weather: 'loading...', //天气
 				Now: '', //当前
 				tip: '', //提示
@@ -112,10 +124,11 @@
 					categories: ['', '', '', '', '', ''],
 					series: [{
 						name: '最高气温',
+						
 						data: [35, 27, 36, 34, 34, 34,36],
 						color: '#ffad35',
 						format: function (val, name) {
-									return val + '°';
+									return val + '℃';
 								}
 						
 					}, {
@@ -123,7 +136,7 @@
 						data: [24, 25, 25, 25, 25, 26,28],
 						color:"#4fc3f7",
 						format: function (val, name) {
-									return val + '°';
+									return val + '℃';
 								}
 					}]
 				}
@@ -153,6 +166,7 @@
 							self.time = res.data.result.updatetime
 							self.winter = res.data.result.temphigh
 							self.listArray = res.data.result.daily
+							self.hourly=res.data.result.hourly
 							// 当前实况
 							self.nowwinter = res.data.result.hourly[0].temp
 							self.weather = res.data.result.hourly[0].weather
@@ -186,7 +200,7 @@
 			});
 			//#endif
 			this.cWidth=uni.upx2px(650);
-			this.cHeight=uni.upx2px(240);
+			this.cHeight=uni.upx2px(180);
 			let LineA=_self.chartData;
 			_self.showLineA("canvasLineA",LineA);
 		},
@@ -212,18 +226,18 @@
 								$this:_self,
 								canvasId: canvasId,
 								type: 'line',
-			colors:['#ffad35', '#4fc3f7'],
+								colors:['#ffad35', '#4fc3f7'],
 								fontSize:11,
 								padding:[15,15,0,15],
 								legend:{
-									show:true,
+									show:false,
 									padding:5,
 									lineHeight:11,
 									margin:0,
 								},
 								dataLabel:true,
 								dataPointShape:true,
-								background:'#FFFFFF',
+								background:'#4e9cea',
 								pixelRatio:_self.pixelRatio,
 								categories: chartData.categories,
 								series: chartData.series,
@@ -244,7 +258,8 @@
 								height: _self.cHeight*_self.pixelRatio,
 								extra: {
 									line:{
-										type: 'straight'
+										type: 'straight',
+										
 									}
 								}
 							});

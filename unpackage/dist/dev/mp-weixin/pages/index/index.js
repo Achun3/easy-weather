@@ -100,22 +100,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var m0 = __webpack_require__(19)("./" +
-    _vm.listArray[0].day.img +
-    ".png")
+  var l0 = _vm.__map(_vm.hourly, function(item, index) {
+    var m0 = __webpack_require__(19)("./" +
+      item.img +
+      ".png")
 
-  var m1 = __webpack_require__(19)("./" +
-    _vm.listArray[1].day.img +
-    ".png")
+    return {
+      $orig: _vm.__get_orig(item),
+      m0: m0
+    }
+  })
 
-  var l0 = _vm.__map(_vm.listArray, function(item, index) {
-    var m2 = __webpack_require__(19)("./" +
+  var l1 = _vm.__map(_vm.listArray, function(item, index) {
+    var m1 = __webpack_require__(19)("./" +
       item.day.img +
       ".png")
 
     return {
       $orig: _vm.__get_orig(item),
-      m2: m2
+      m1: m1
     }
   })
 
@@ -123,9 +126,8 @@ var render = function() {
     {},
     {
       $root: {
-        m0: m0,
-        m1: m1,
-        l0: l0
+        l0: l0,
+        l1: l1
       }
     }
   )
@@ -243,114 +245,128 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _uCharts = _interopRequireDefault(__webpack_require__(/*! @/js_sdk/u-charts/u-charts/u-charts.js */ 66));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var uniCard = function uniCard() {return __webpack_require__.e(/*! import() | components/uni-card/uni-card */ "components/uni-card/uni-card").then(__webpack_require__.bind(null, /*! @/components/uni-card/uni-card.vue */ 72));};
-var _self;
-var canvaLineA = null;var _default =
-{
-  components: {
-    uniCard: uniCard },
 
 
-  data: function data() {
-    return {
-      navHeight: 0, //滚动区域的所需高度
+
+
+
+
+
+
+
+
+
+
+var _uCharts = _interopRequireDefault(__webpack_require__(/*! @/js_sdk/u-charts/u-charts/u-charts.js */ 66));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _self;var canvaLineA = null;var _default = { components: {}, data: function data() {return { navHeight: 0, //滚动区域的所需高度
       city: 'loading...', //城市
       time: 'loading...', //正在加载中
-      day: 'loading...',
-      week: 'loading...', //星期
+      day: 'loading...', week: 'loading...', //星期
       nowwinter: '0', //温度
-      todaytemphigh: "0",
-      img: "0",
-      listArray: [], //列表数据
-
-      weather: 'loading...', //天气
+      todaytemphigh: "0", img: "0", listArray: [], //列表数据
+      hourly: [], weather: 'loading...', //天气
       Now: '', //当前
       tip: '', //提示
       primarypollutant: '', //PM
       quality: '', //污染等级
-      cWidth: '',
-      cHeight: '',
-      pixelRatio: 1,
-      textarea: '',
-      chartData: {
-        categories: ['', '', '', '', '', ''],
-        series: [{
-          name: '最高气温',
-          data: [35, 27, 36, 34, 34, 34, 36],
-          color: '#ffad35',
-          format: function format(val, name) {
-            return val + '°';
-          } },
-
-        {
-          name: '最低气温',
-          data: [24, 25, 25, 25, 25, 26, 28],
-          color: "#4fc3f7",
-          format: function format(val, name) {
-            return val + '°';
-          } }] } };
-
-
-
-  },
-  onLoad: function onLoad() {
-    var time = __webpack_require__(/*! ../../components/calendar.js */ 67).calendar.solar2lunar();
-    this.day = time.cMonth + '月' + time.cDay + ' ' + time.ncWeek + ' 农历' + time.IMonthCn + time.IDayCn;
-    // 动态获取列表高度
-    this.calcScrollHeight();
-    var self = this;
-    // 获取用户位置经纬度
-    uni.getLocation({
-      type: 'wgs84',
-      success: function success(res) {
-        var longitude = res.longitude;
-        var latitude = res.latitude;
-        // 请求数据接口获取经纬度,然后转换为城市
-        uni.request({
-          url: 'https://api.jisuapi.com/weather/query?appkey=70c18afb45867f37&location=' + latitude + ',' + longitude +
-          '',
-          header: {
-            'content-type': 'application/json' },
-
-          success: function success(res) {
-            self.city = res.data.result.city;
-            self.time = res.data.result.updatetime;
-            self.winter = res.data.result.temphigh;
-            self.listArray = res.data.result.daily;
-            // 当前实况
-            self.nowwinter = res.data.result.hourly[0].temp;
-            self.weather = res.data.result.hourly[0].weather;
-            self.Now = res.data.result.index[6].ivalue;
-            self.tip = res.data.result.index[6].detail;
-            self.primarypollutant = res.data.result.aqi.primarypollutant;
-            self.quality = res.data.result.aqi.quality;
-            for (var i = 0; i < 7; i++)
-            {
-              self.chartData.series[0].data[i] = res.data.result.daily[i].day.temphigh;
-            }
-            for (var i = 0; i < 7; i++)
-            {
-              self.chartData.series[1].data[i] = res.data.result.daily[i].night.templow;
-            }
-
-          } });
-
-      } }),
-
-    _self = this;
-
-
-
-
-
-
-
-
-
-
-
+      cWidth: '', cHeight: '', pixelRatio: 1, textarea: '', chartData: { categories: ['', '', '', '', '', ''], series: [{ name: '最高气温', data: [35, 27, 36, 34, 34, 34, 36], color: '#ffad35', format: function format(val, name) {return val + '℃';} }, { name: '最低气温', data: [24, 25, 25, 25, 25, 26, 28], color: "#4fc3f7", format: function format(val, name) {return val + '℃';} }] } };}, onLoad: function onLoad() {var time = __webpack_require__(/*! ../../components/calendar.js */ 67).calendar.solar2lunar();this.day = time.cMonth + '月' + time.cDay + ' ' + time.ncWeek + ' 农历' + time.IMonthCn + time.IDayCn; // 动态获取列表高度
+    this.calcScrollHeight();var self = this; // 获取用户位置经纬度
+    uni.getLocation({ type: 'wgs84', success: function success(res) {var longitude = res.longitude;var latitude = res.latitude; // 请求数据接口获取经纬度,然后转换为城市
+        uni.request({ url: 'https://api.jisuapi.com/weather/query?appkey=70c18afb45867f37&location=' + latitude + ',' + longitude + '', header: { 'content-type': 'application/json' }, success: function success(res) {self.city = res.data.result.city;self.time = res.data.result.updatetime;self.winter = res.data.result.temphigh;self.listArray = res.data.result.daily;self.hourly = res.data.result.hourly; // 当前实况
+            self.nowwinter = res.data.result.hourly[0].temp;self.weather = res.data.result.hourly[0].weather;self.Now = res.data.result.index[6].ivalue;self.tip = res.data.result.index[6].detail;self.primarypollutant = res.data.result.aqi.primarypollutant;self.quality = res.data.result.aqi.quality;for (var i = 0; i < 7; i++) {self.chartData.series[0].data[i] = res.data.result.daily[i].day.temphigh;}for (var i = 0; i < 7; i++) {self.chartData.series[1].data[i] = res.data.result.daily[i].night.templow;}} });} }), _self = this;
     this.cWidth = uni.upx2px(650);
-    this.cHeight = uni.upx2px(240);
+    this.cHeight = uni.upx2px(180);
     var LineA = _self.chartData;
     _self.showLineA("canvasLineA", LineA);
   },
@@ -370,6 +386,7 @@ var canvaLineA = null;var _default =
         } });
 
     },
+    //折线图部分
     showLineA: function showLineA(canvasId, chartData) {
       canvaLineA = new _uCharts.default({
         $this: _self,
@@ -379,14 +396,14 @@ var canvaLineA = null;var _default =
         fontSize: 11,
         padding: [15, 15, 0, 15],
         legend: {
-          show: true,
+          show: false,
           padding: 5,
           lineHeight: 11,
           margin: 0 },
 
         dataLabel: true,
         dataPointShape: true,
-        background: '#FFFFFF',
+        background: '#4e9cea',
         pixelRatio: _self.pixelRatio,
         categories: chartData.categories,
         series: chartData.series,
@@ -408,6 +425,7 @@ var canvaLineA = null;var _default =
         extra: {
           line: {
             type: 'straight' } } });
+
 
 
 

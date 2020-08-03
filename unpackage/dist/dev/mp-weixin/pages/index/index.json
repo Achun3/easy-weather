@@ -1,6 +1,4 @@
 {
   "navigationBarTitleText": "无忧气象",
-  "usingComponents": {
-    "uni-card": "/components/uni-card/uni-card"
-  }
+  "usingComponents": {}
 }
